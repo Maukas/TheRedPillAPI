@@ -1,21 +1,30 @@
 ﻿namespace DataAccess.Context
 {
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Options;
-    using DataModels.Settings;
+    using Entities;
+
     public class DataAPIContext: DbContext
     {
-        IOptions<AppSettings> settings;
+        public DataAPIContext() { }
+
+        public DbSet<Data> Datas { get; set; }
+        public DataAPIContext(DbContextOptions<DataAPIContext> options)
+        : base(options)
+        {
+          
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        
+        }
+    
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-        //    modelBuilder.HasPostgresExtension("uuid-ossp")
-        //            .Entity<Account>()
-        //            .Property(e => e.AccountId)
-        //            .HasDefaultValueSql("uuid_generate_v4()");
-        //    modelBuilder.HasPostgresExtension("uuid-ossp")
-        //          .Entity<Bill>()
-        //          .Property(e => e.BillId)
-        //          .HasDefaultValueSql("uuid_generate_v4()");
+            modelBuilder.Entity<Data>().Property(p => p.DataJson).HasColumnType("json");
+            modelBuilder.HasPostgresExtension("uuid-ossp")
+                .Entity<Data>()
+                .Property(e => e.DataId)
+                .HasDefaultValueSql("uuid_generate_v4()");
         }
     }
 }
