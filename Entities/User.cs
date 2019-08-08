@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Entities
 {
-   public class User
+   public class User : Entity
     {
         public Guid UserId { get; set; }
         public string GAccountId { get; set; }

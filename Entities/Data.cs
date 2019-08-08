@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Entities
 {
-    public class Data
+    public class Data : Entity
     {
         public Guid DataId { get; set; }
         public string DataJson { get; set; }
