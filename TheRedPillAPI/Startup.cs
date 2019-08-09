@@ -1,4 +1,5 @@
-﻿namespace TheRedPillAPI
+﻿[assembly: Microsoft.AspNetCore.Mvc.ApiController]
+namespace TheRedPillAPI
 {
 
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,8 @@ using DataModels.Settings;
 using DataAccess.Context;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
+    using DataAccess.UnitOfWorksInterfaces;
+    using DataAccess.UnitOfWorks;
 
     public class Startup
     {
@@ -25,7 +28,7 @@ using DataAccess.Context;
         {
             //Load AppSettings Section For AppSettingsDI with IOptions<AppSettings> settings
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-           
+            
             //Adding two context , one for data on Nosql , second for user on Sql  ( BOTH ON POSTGRESQL )
             services.AddEntityFrameworkNpgsql()
                .AddDbContext<DataAPIContext>(options => options.UseNpgsql(Configuration.GetConnectionString("data")))
@@ -33,6 +36,8 @@ using DataAccess.Context;
             services.AddEntityFrameworkNpgsql()
                .AddDbContext<UserAPIContext>(options => options.UseNpgsql(Configuration.GetConnectionString("user")))
                .BuildServiceProvider();
+            services.AddScoped<IUnitOfWork<DataAPIContext>, UnitOfWork<DataAPIContext>>();
+            services.AddScoped<IUnitOfWork<UserAPIContext>, UnitOfWork<UserAPIContext>>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

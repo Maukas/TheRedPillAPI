@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DataAccess.RepositoriesInterfaces
 {
-        // Dans cet article, les commentaires sont présents dans l'Interface mais ne le seront pas dans son implémentation
+       
         public interface IGenericRepository<TEntity> where TEntity : Entity
         {
             #region CREATE
