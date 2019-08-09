@@ -16,6 +16,6 @@ namespace DataAccess.UnitOfWorksInterfaces
 
         int ExecuteSqlCommand(string sql, params object[] parameters);
         IQueryable<TEntity> FromSql<TEntity>(string sql, params object[] parameters) where TEntity : Entity;
-        int Save();
+        void Save();
     }
 }

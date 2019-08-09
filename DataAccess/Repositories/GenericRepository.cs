@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
+
 namespace DataAccess.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : Entity
@@ -26,6 +27,7 @@ namespace DataAccess.Repositories
         public virtual void Add(TEntity entity)
         {
             var entry = _dbSet.Add(entity);
+            
         }
         public virtual void Add(IEnumerable<TEntity> entities) => _dbSet.AddRange(entities);
         #endregion

@@ -39,9 +39,9 @@ namespace DataAccess.UnitOfWorks
         {
            return (IQueryable<TEntity>)_context.Set<Entity>().FromSql(sql, parameters);
         }
-        public int Save()
+        public void Save()
         {
-           return _context.SaveChanges();
+            _context.BulkSaveChanges();
         }
         protected virtual void Dispose(bool disposing)
         {

@@ -20,6 +20,7 @@ namespace TheRedPillAPI.Controllers
         }
         private IUserService _userService;
 
+        #region Dev Func
         [HttpGet("one")]
         public IActionResult GetOne()
         {
@@ -31,10 +32,16 @@ namespace TheRedPillAPI.Controllers
         {
             if (userModel == null)
             {
+                
                 throw new ArgumentNullException("userModel");
             }
-            _userService.CreateOne(userModel.GAccountMail);
+            if (ModelState.IsValid)
+            {
+                _userService.CreateOne(userModel.GAccountMail);
+            }
+               
             return Ok();
         }
+        #endregion
     }
 }
