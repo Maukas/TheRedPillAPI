@@ -130,5 +130,5 @@ namespace DataAccess.RepositoriesInterfaces
             bool Exists(Expression<Func<TEntity, bool>> predicate);
             #endregion
         }
-    }
+    
 }

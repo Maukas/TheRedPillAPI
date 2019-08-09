@@ -1,5 +1,4 @@
-﻿[assembly: Microsoft.AspNetCore.Mvc.ApiController]
-namespace TheRedPillAPI
+﻿namespace TheRedPillAPI
 {
 
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +12,8 @@ using DataAccess.Context;
     using Microsoft.Extensions.Options;
     using DataAccess.UnitOfWorksInterfaces;
     using DataAccess.UnitOfWorks;
+    using Services.IServices;
+    using Services;
 
     public class Startup
     {
@@ -38,6 +39,7 @@ using DataAccess.Context;
                .BuildServiceProvider();
             services.AddScoped<IUnitOfWork<DataAPIContext>, UnitOfWork<DataAPIContext>>();
             services.AddScoped<IUnitOfWork<UserAPIContext>, UnitOfWork<UserAPIContext>>();
+            services.AddTransient<IUserService, UserService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
